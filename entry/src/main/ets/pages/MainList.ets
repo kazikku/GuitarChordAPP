@@ -77,7 +77,8 @@ struct MainList {
     this.errorMessage = 'Pobieranie listy...';
 
     // To jest główny trzon Twoich linków z GitHuba (bez nazwy konkretnego pliku na końcu)
-    let baseUrl = "https://raw.githubusercontent.com/kazikku/Teskty_GuitarChordsAPP/main/";
+    //let baseUrl = "https://raw.githubusercontent.com/kazikku/Teskty_GuitarChordsAPP/main/";
+    let baseUrl = "https://raw.githubusercontent.com/kazikku/Teskty_GuitarChordsAPP/refs/heads/main/";
 
     // Najpierw pobieramy plik ze spisem treści
     let indexUrl = baseUrl + "index.txt";

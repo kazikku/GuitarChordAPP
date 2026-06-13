@@ -5,3 +5,5 @@ v0.1:
 v1.0:
 -dodane logo
 -ustawienia ciemny motyw
+v1.1:
+-formatowanie tekstów
