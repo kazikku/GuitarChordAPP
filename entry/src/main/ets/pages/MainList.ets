@@ -18,7 +18,7 @@ struct MainList {
   @State isLoading: boolean = false;
   @State errorMessage: string = '';
 
-
+  @StorageLink('isDarkTheme') isDarkTheme: boolean = true;
 
   onPageShow() {
     this.loadSongsFromWatchMemory();
@@ -159,9 +159,11 @@ struct MainList {
       //   .margin({ top: 25, bottom: 10 })
 
       if (this.isLoading) {
-        LoadingProgress().width(40).height(40).color(Color.White)
-      }
-      else {
+        Column() {
+          // Zmiana 2: kółko ładowania dopasowuje się do tła
+          LoadingProgress().width(40).height(40).color(this.isDarkTheme ? Color.White : Color.Black)
+        }.layoutWeight(1).justifyContent(FlexAlign.Center)
+      } else {
         List({ space: 10 }) {
           ForEach(this.songsList, (song: Song) => {
             ListItem() {
@@ -196,7 +198,7 @@ struct MainList {
               .alignItems(HorizontalAlign.Start)
               .padding(12)
               .width('100%')
-              .backgroundColor('#1e1e1e')
+              .backgroundColor(this.isDarkTheme ? '#1e1e1e' : '#f0f0f0')
               .borderRadius(8)
             }
 
@@ -208,7 +210,7 @@ struct MainList {
                 .fontSize(10)
                 .width('70%')
                 .margin({ bottom: 5})
-                .backgroundColor('#87919E')
+                .backgroundColor(this.isDarkTheme ? '#555555' : '#e0e0e0')
                 .onClick(() => {
                   this.syncWithGitHub();
                 })
@@ -216,7 +218,7 @@ struct MainList {
                 .width('70%')
                 .fontSize(10)
                 .margin({ bottom: 10 })
-                .backgroundColor('#87919E') // Szary neutralny kolor
+                .backgroundColor(this.isDarkTheme ? '#555555' : '#e0e0e0') // Szary neutralny kolor
                 .onClick(() => {
                   router.pushUrl({
                     url: 'pages/Settings'
@@ -228,7 +230,7 @@ struct MainList {
                 Text(this.errorMessage)
                   .fontSize(12)
                   // Prosty trik: jeśli to tekst o pobraniu, dajemy zielony. W przeciwnym razie czerwony.
-                  .fontColor(Color.Gray)
+                  //.backgroundColor(this.isDarkTheme ? '#555555' : '#e0e0e0')
                   .textAlign(TextAlign.Center)
                   .padding({ top: 10, bottom: 5 })
                   .width('80%')
@@ -251,7 +253,7 @@ struct MainList {
     .width('100%')
     .height('100%')
     .padding({ bottom: 20 })
-    .backgroundColor(Color.Black)
+    .backgroundColor(this.isDarkTheme ? Color.Black : Color.White)
   }
 
 }

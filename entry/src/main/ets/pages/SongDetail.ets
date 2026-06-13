@@ -19,6 +19,9 @@ struct SongDetail {
   private intervalId: number = -1;
   private hideTimeoutId: number = -1;
   @State isSpeedVisible: boolean = false;
+
+  @StorageLink('isDarkTheme') isDarkTheme: boolean = true;
+
   aboutToAppear() {
     let params = router.getParams() as Record<string, string>;
     if (params) {
@@ -110,7 +113,7 @@ struct SongDetail {
 
                   Text(block.lyric !== '' ? block.lyric : ' ')
                     .fontSize(10)
-                    .fontColor(Color.White)
+                    .fontColor(this.isDarkTheme ? Color.White : Color.Black)
                 }
                 .alignItems(HorizontalAlign.Start)
                 .margin({ right: 8, bottom: 8 })
@@ -160,11 +163,12 @@ struct SongDetail {
         Text(`Prędkość: ${this.scrollSpeed > 0 ? '+' : ''}${this.scrollSpeed.toFixed(1)}`)
           .fontSize(12)
           .fontWeight(FontWeight.Bold)
-          .fontColor(Color.Black)
-          .backgroundColor(Color.White)
+          .fontColor(this.isDarkTheme ? Color.Black : Color.White)
+          .backgroundColor(this.isDarkTheme ? '#f0f0f0' : '#e0e0e0')
           .padding({ top: 4, bottom: 4, left: 10, right: 10 })
           .borderRadius(12)
           .margin({ bottom: 20 })
+          .opacity(0.8)
           // To jest magia ArkTS - definiujemy efekt pojawiania się i znikania
           .transition({
             type: TransitionType.All,
@@ -176,7 +180,7 @@ struct SongDetail {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor(Color.Black)
+    .backgroundColor(this.isDarkTheme ? Color.Black : Color.White)
     // 4. Tapnięcie palcem w ekran działa jako hamulec
     .onClick(() => {
       this.scrollSpeed = 0;

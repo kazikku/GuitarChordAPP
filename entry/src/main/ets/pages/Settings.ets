@@ -65,12 +65,7 @@ struct Settings {
           .padding(10)
       }
 
-      Button('Wróć')
-        .width('50%')
-        .margin({ top: 20 })
-        .backgroundColor(this.isDarkTheme ? '#444444' : '#cccccc')
-        .fontColor(this.isDarkTheme ? Color.White : Color.Black)
-        .onClick(() => { router.back(); })
+
     }
     .width('100%')
     .height('100%')
